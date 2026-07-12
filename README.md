@@ -48,3 +48,7 @@ For instance, this structure applies to:
 - [ ] **Hardening & Security**:
   - Integrate JWT tokens (access + refresh keys) with dependency-injection role guards.
   - Set up slowapi rate limiters, Celery background tasks, and structured logging.
+
+
+
+  #Home branch created
