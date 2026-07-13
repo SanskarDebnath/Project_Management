@@ -63,11 +63,11 @@ def register_controllers(app: FastAPI):
 
 register_controllers(app)
 
-# ──────────────────────────────────────────────
-# Health Check
-# ──────────────────────────────────────────────
-@app.get("/health", tags=["Health"])
-async def health_check():
-    """Basic health-check endpoint — confirms the API is alive."""
-    return {"status": "ok", "service": "pm-sys-backend", "version": "2.0.0"}
+# # ──────────────────────────────────────────────
+# # Health Check
+# # ──────────────────────────────────────────────
+# @app.get("/health", tags=["Health"])
+# async def health_check():
+#     """Basic health-check endpoint — confirms the API is alive."""
+#     return {"status": "ok", "service": "pm-sys-backend", "version": "2.0.0"}
 
