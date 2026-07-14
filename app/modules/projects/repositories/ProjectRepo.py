@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from sqlalchemy import func, select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
@@ -140,7 +142,22 @@ class ProjectRepo:
         query = select(ProjectMemberTable).where(ProjectMemberTable.project_id == project_id, ProjectMemberTable.developer_id == developer_id)
         return db.scalar(query)
     
-    
+
     @staticmethod
     def get_department_by_id(db: Session, department_id: int) -> DBDepartment | None:
         return db.get(DBDepartment, department_id)
+    
+
+
+
+#========================================================================================
+    @staticmethod
+    def get_project_details(db: Session, project_id: int | None = None, project_uuid: UUID | None = None) -> ProjectTable | None:
+        if project_id is not None:
+            return db.get(ProjectTable, project_id)
+        
+        if project_uuid is not None:
+            query = select(ProjectTable).where(ProjectTable.project_uuid == project_uuid)
+            return db.scalar(query)
+        
+        return None

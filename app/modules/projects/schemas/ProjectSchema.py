@@ -152,3 +152,41 @@ class ProjectMemberCreateDTO(BaseModel):
         return value
     
 
+#====================view project DTO
+class ProjectLookupDTO(BaseModel):
+    project_id: int | None = Field(
+        default=None,
+        gt=0
+    )
+    project_uuid: UUID | None = None
+    
+    @model_validator(mode="after")
+    def validate_project_identifier(self) -> "ProjectLookupDTO" : 
+        provided_identifiers = sum([self.project_id is not None,
+                                    self.project_uuid is not None])
+        
+        if provided_identifiers == 0:
+            raise ValueError("Provide either Project ID or Project UUID")
+        
+        if provided_identifiers > 1:
+            raise ValueError("Provide only one identifiers:"
+                             "Project_id or Project_uuid")
+        return self
+
+
+class ProjectReponseDTO(BaseModel):
+    model_config = ConfigDict(
+        from_attributes=True
+    )
+    project_id: int
+    project_uuid: UUID
+    project_name: str
+    project_budget: Decimal
+    project_status: ProjectStatus
+    department_id: int
+    officer_id: str
+    project_start_date: date | None
+    project_expected_end_date: date | None
+    project_description: str | None
+    project_created_at: datetime
+    project_updated_at: datetime

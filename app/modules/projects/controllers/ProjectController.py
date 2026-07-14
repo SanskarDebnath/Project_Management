@@ -1,9 +1,11 @@
 from fastapi import (APIRouter, Depends, status)
 from sqlalchemy.orm import Session
 from core.database.database import get_db
+from modules.projects.schemas.ProjectSchema import ProjectReponseDTO
 from modules.projects.services.ProjectService import(
     OfficerCreateDTO,
     ProjectCreateDTO,
+    ProjectLookupDTO,
     ProjectMemberCreateDTO
 )
 from modules.projects.services.ProjectService import ProjectService
@@ -46,3 +48,7 @@ def assign_project_member(member_data: ProjectMemberCreateDTO, db: Session = Dep
         }
 
     
+@router.post("/view-project-details", summary="View Project Details", description=("Retreive the complete project information"), response_model=ProjectReponseDTO, status_code=status.HTTP_200_OK)
+def view_project_details(lookup_data: ProjectLookupDTO, db: Session = Depends(get_db)):
+    project = ProjectService.get_project_details(db, lookup_data)
+    return project
