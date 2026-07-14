@@ -28,13 +28,15 @@ from fastapi.middleware.cors import CORSMiddleware
 # from app.modules.sessions.models import DBSession
 # from app.modules.users.models import DBUser
 # Base.metadata.create_all(bind=engine)
-from modules.departments.controllers.DepartmentController import router as department_router
+from modules.departments.controllers.DepartmentController import router as departmentrouter
+from modules.projects.controllers.ProjectController import router as projectrouter
+
 
 app = FastAPI(
     title="PM-SYS/BE — Project & Budget Tracking System",
     description="Enterprise-grade project management and budget tracking backend",
     version="2.0.0",
-    docs_url="/api/docs",
+    docs_url="/apis",
     redoc_url="/api/redoc",
     openapi_url="/api/v1/openapi.json",
 )
@@ -42,8 +44,8 @@ app = FastAPI(
 
 
 
-app.include_router(department_router)
-
+app.include_router(departmentrouter)
+app.include_router(projectrouter)
 
 
 # CORS configuration
