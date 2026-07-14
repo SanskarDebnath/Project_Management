@@ -43,7 +43,7 @@ app = FastAPI(
 
 
 
-
+0
 app.include_router(departmentrouter)
 app.include_router(projectrouter)
 
