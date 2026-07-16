@@ -15,6 +15,7 @@ from modules.projects.repositories.ProjectRepo import (
 from modules.projects.schemas.ProjectSchema import (
     OfficerCreateDTO,
     ProjectCreateDTO,
+    ProjectLookupDTO,
     ProjectMemberCreateDTO,
 )
 
@@ -141,3 +142,29 @@ class ProjectService:
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Unable to assign project member"
             ) from exception
+        
+
+
+    @staticmethod
+    def get_project_details(db: Session, lookup_data: ProjectLookupDTO) -> ProjectTable:
+        try:
+            project = ProjectRepo.get_project_details(
+                db = db,
+                project_id=lookup_data.project_id,
+                project_uuid=lookup_data.project_uuid
+            )
+        except SQLAlchemyError as exception:
+            raise HTTPException(
+                status_code=(status.HTTP_500_INTERNAL_SERVER_ERROR),
+                detail="Unable to retrieve project details"
+            ) from exception
+        
+        if project is None:
+            identifier = (lookup_data.project_id if lookup_data.project_id is not None
+                          else lookup_data.project_uuid)
+            
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Project not found for identifier : {identifier}"
+            )
+        return project
