@@ -1,0 +1,17 @@
+{
+  "name": "enterprise-portal-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": [
+    "apps/employee",
+    "apps/management"
+  ],
+  "scripts": {
+    "dev:employee": "npm run dev --workspace=apps/employee -- --host 0.0.0.0 --port 3000",
+    "dev:management": "npm run dev --workspace=apps/management -- --host 0.0.0.0 --port 5174",
+    "build:employee": "npm run build --workspace=apps/employee",
+    "build:management": "npm run build --workspace=apps/management",
+    "build:all": "npm run build --workspaces"
+  }
+}

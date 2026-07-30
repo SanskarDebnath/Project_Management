@@ -1,0 +1,25 @@
+# ===================================================
+# Management App Dependencies (npm packages)
+# ===================================================
+node_modules/
+**/node_modules/
+**/node_modules/**
+
+# Environment Variables & Secrets
+.env
+.env.*
+*.env
+!.env.example
+
+# Build Outputs
+dist/
+dist-ssr/
+build/
+.vite/
+*.tsbuildinfo
+
+# IDE & System Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

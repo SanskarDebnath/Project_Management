@@ -1,0 +1,55 @@
+# ===================================================
+# Dependencies & Package Managers (npm packages)
+# ===================================================
+node_modules/
+**/node_modules/
+**/node_modules/**
+Frontend/node_modules/
+Frontend/apps/*/node_modules/
+Frontend/apps/**/node_modules/
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===================================================
+# Environment Variables & Secrets
+# ===================================================
+.env
+.env.*
+*.env
+!.env.example
+
+# ===================================================
+# Docker Configurations
+# ===================================================
+Dockerfile
+Dockerfile.*
+docker-compose*.yml
+.dockerignore
+
+# ===================================================
+# Build & Distribution Outputs
+# ===================================================
+dist/
+build/
+.vite/
+*.tsbuildinfo
+
+# ===================================================
+# Python / Virtualenv (for Backend if any)
+# ===================================================
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# ===================================================
+# IDE & System Files
+# ===================================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

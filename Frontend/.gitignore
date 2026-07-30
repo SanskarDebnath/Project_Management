@@ -1,0 +1,52 @@
+# ===================================================
+# Dependencies & Package Managers (npm packages)
+# ===================================================
+node_modules/
+**/node_modules/
+**/node_modules/**
+apps/*/node_modules/
+apps/**/node_modules/
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# ===================================================
+# Environment Variables & Secrets
+# ===================================================
+.env
+.env.*
+*.env
+!.env.example
+
+# ===================================================
+# Docker Configurations
+# ===================================================
+Dockerfile
+Dockerfile.*
+docker-compose*.yml
+.dockerignore
+
+# ===================================================
+# Build & Distribution Outputs
+# ===================================================
+dist/
+dist-ssr/
+build/
+*.tsbuildinfo
+.vite/
+
+# ===================================================
+# IDE, Editors & System Files
+# ===================================================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
