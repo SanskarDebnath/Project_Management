@@ -12,6 +12,18 @@ from reportlab.platypus import (
     TableStyle,
 )
 
+import base64
+import hashlib
+from io import BytesIO
+
+from pyhanko.sign import signers
+from pyhanko.sign.fields import SigFieldSpec
+from pyhanko.pdf_utils.incremental_writer import (
+    IncrementalPdfFileWriter,
+)
+
+
+
 class WorkOrderPdfService:
 
     @staticmethod
@@ -155,3 +167,70 @@ class WorkOrderPdfService:
         buffer.close()
 
         return pdf_bytes
+    
+
+def encode_pdf(pdf_bytes: bytes) -> str:
+    return base64.b64encode(
+        pdf_bytes
+    ).decode("utf-8")
+    
+def decode_pdf(pdf_base64: str) -> bytes:
+    return base64.b64decode(
+        pdf_base64,
+        validate=True,
+    )
+
+def calculate_sha256(pdf_bytes: bytes) -> str:
+    return hashlib.sha256(
+        pdf_bytes
+    ).hexdigest()
+
+
+class WorkOrderSigningService:
+    @staticmethod
+    def sign_pdf(
+        pdf_bytes: bytes,
+        p12_file_path: str,
+        p12_password: str,
+        reason: str,
+        location: str,
+    ) -> bytes:
+        
+        signer = signers.SimpleSigner.load_pkcs12(
+            pfx_file=p12_file_path,
+            passphrase=p12_password.encode("utf-8"),
+        )
+        
+        if signer is None:
+            raise RuntimeError("Failed to load PKCS#12 signer from provided file and password")
+
+        input_buffer = BytesIO(pdf_bytes)
+        output_buffer = BytesIO()
+
+        writer = IncrementalPdfFileWriter(
+            input_buffer
+        )
+
+        signature_metadata = signers.PdfSignatureMetadata(
+            field_name="OfficerSignature",
+            reason=reason,
+            location=location,
+        )
+
+
+        pdf_signer = signers.PdfSigner(
+            signature_metadata,
+            signer=signer,
+            new_field_spec=SigFieldSpec(
+                sig_field_name="OfficerSignature",
+                box=(350, 60, 550, 130),
+                on_page=-1,
+            ),
+        )
+
+        pdf_signer.sign_pdf(
+            writer,
+            output=output_buffer,
+        )
+
+        return output_buffer.getvalue()
