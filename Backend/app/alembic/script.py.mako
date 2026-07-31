@@ -19,9 +19,8 @@ depends_on: Union[str, Sequence[str], None] = ${repr(depends_on)}
 
 
 def upgrade() -> None:
-    op.execute(
-        "CREATE SCHEMA IF NOT EXISTS projects"
-    )
+    """Upgrade schema."""
+    ${upgrades if upgrades else "pass"}
 
 
 def downgrade() -> None:

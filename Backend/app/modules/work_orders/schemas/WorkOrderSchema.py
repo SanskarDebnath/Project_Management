@@ -44,6 +44,23 @@ class WorkOrderCreateDTO(BaseModel):
         default=None,
         max_length=5000,
     )
+    # Added optional fields for custom snapshot overrides and number of months
+    number_of_months: int | None = Field(
+        default=None,
+        gt=0,
+    )
+    project_name: str | None = Field(
+        default=None,
+        max_length=200,
+    )
+    department_name: str | None = Field(
+        default=None,
+        max_length=200,
+    )
+    developer_name: str | None = Field(
+        default=None,
+        max_length=200,
+    )
 
     @field_validator(
         "work_order_number",
@@ -125,6 +142,7 @@ class WorkOrderResponseDTO(BaseModel):
 
     work_order_description: str | None
     project_name_snapshot: str
+    department_name_snapshot: str | None = None
     developer_name_snapshot: str
     officer_name_snapshot : str
 

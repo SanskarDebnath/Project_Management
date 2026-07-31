@@ -34,7 +34,7 @@ class WorkOrderTable(Base):
     __tablename__ = "work_orders"
     __table_args__ = (
         UniqueConstraint(
-            "Work_order_number",
+            "work_order_number",
             name="uq_work_order_number",
         ),
         CheckConstraint(
@@ -42,9 +42,7 @@ class WorkOrderTable(Base):
             name = "ck_work_order_salary_non_negetive",
         ),
         CheckConstraint(
-            """
-
-            """,
+            "work_order_end_date >= work_order_start_date",
             name = "ck_work_order_end_after_start",
         ),
         CheckConstraint(
@@ -85,7 +83,7 @@ class WorkOrderTable(Base):
     department_id: Mapped[int] = mapped_column(
         Integer,
         ForeignKey(
-            "depsrtmrnts.departments.department_id",
+            "departments.departments.department_id",
             ondelete="RESTRICT"
         ),
         nullable=False,

@@ -29,6 +29,7 @@ from modules.projects.models.ProjectTable import (
     ProjectTable,
     ProjectMemberTable,
 )
+from modules.work_orders.models.WorkOrderTable import WorkOrderTable
 
 
 target_metadata = Base.metadata

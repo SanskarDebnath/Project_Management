@@ -30,6 +30,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # Base.metadata.create_all(bind=engine)
 from modules.departments.controllers.DepartmentController import router as departmentrouter
 from modules.projects.controllers.ProjectController import router as projectrouter
+from modules.work_orders.controllers.WorkOrderController import router as worouter
 
 
 app = FastAPI(
@@ -43,9 +44,10 @@ app = FastAPI(
 
 
 
-0
+
 app.include_router(departmentrouter)
 app.include_router(projectrouter)
+app.include_router(worouter)
 
 
 # CORS configuration
