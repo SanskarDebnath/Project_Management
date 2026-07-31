@@ -31,6 +31,25 @@ def get_work_order_details(
         lookup,
     )
 
+@router.get(
+    "/list",
+    response_model=list[WorkOrderResponseDTO],
+)
+@router.get(
+    "/all",
+    response_model=list[WorkOrderResponseDTO],
+)
+@router.get(
+    "/my-orders",
+    response_model=list[WorkOrderResponseDTO],
+)
+def list_work_orders(
+    db: Session = Depends(get_db),
+):
+    return WorkOrderService.get_all_work_orders(db)
+
+
+
 
 class WorkOrderSignRequest(BaseModel):
     lookup: WorkOrderLookupDTO

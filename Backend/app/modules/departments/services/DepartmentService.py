@@ -67,3 +67,7 @@ class DepartmentService:
             )
 
         return updated_department
+
+    @staticmethod
+    def get_all_departments(db: Session) -> list[DBDepartment]:
+        return DepartmentRepo.get_all_departments(db)

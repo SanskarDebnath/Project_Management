@@ -47,9 +47,12 @@ export default function App() {
               <Route path="/tasks" element={<TasksPage />} />
               <Route path="/attendance" element={<AttendancePage />} />
               <Route path="/work-orders" element={<WorkOrdersPage />} />
+              {/* Uncreated backend modules commented out per user instruction:
               <Route path="/performance" element={<PerformancePage />} />
               <Route path="/payroll" element={<PayrollPage />} />
+              */}
               <Route path="/profile" element={<ProfilePage />} />
+
             </Route>
           </Route>
 

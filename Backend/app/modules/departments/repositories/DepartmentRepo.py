@@ -52,3 +52,8 @@ class DepartmentRepo:
             db: Session, department_name: str) -> DBDepartment | None:
             query = select(DBDepartment).where(func.lower(DBDepartment.department_name) == department_name.lower())
             return db.scalar(query)
+
+    @staticmethod
+    def get_all_departments(db: Session) -> list[DBDepartment]:
+        query = select(DBDepartment).order_by(DBDepartment.department_id)
+        return list(db.scalars(query).all())

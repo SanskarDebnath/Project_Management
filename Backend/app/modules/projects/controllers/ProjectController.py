@@ -52,3 +52,47 @@ def assign_project_member(member_data: ProjectMemberCreateDTO, db: Session = Dep
 def view_project_details(lookup_data: ProjectLookupDTO, db: Session = Depends(get_db)):
     project = ProjectService.get_project_details(db, lookup_data)
     return project
+
+@router.get("/list", summary="List All Projects", status_code=status.HTTP_200_OK)
+@router.get("/all", summary="List All Projects", status_code=status.HTTP_200_OK)
+def list_projects(db: Session = Depends(get_db)):
+    projects = ProjectService.get_all_projects(db)
+    officers = ProjectService.get_all_officers(db)
+    departments = db.query(DBDepartment).all() if db else []
+
+    officer_map = {o.officer_id: o.officer_name for o in officers}
+    dept_map = {d.department_id: d.department_name for d in departments}
+
+    return [
+        {
+            "project_id": p.project_id,
+            "project_uuid": str(p.project_uuid),
+            "project_name": p.project_name,
+            "project_budget": float(p.project_budget) if p.project_budget else 0.0,
+            "project_status": p.project_status,
+            "department_id": p.department_id,
+            "department_name": dept_map.get(p.department_id, f"Department #{p.department_id}"),
+            "officer_id": p.officer_id,
+            "officer_name": officer_map.get(p.officer_id, f"Officer {p.officer_id}"),
+            "project_start_date": str(p.project_start_date) if p.project_start_date else None,
+            "project_expected_end_date": str(p.project_expected_end_date) if p.project_expected_end_date else None,
+            "project_description": p.project_description,
+        }
+        for p in projects
+    ]
+
+
+@router.get("/officers", summary="List All Officers", status_code=status.HTTP_200_OK)
+def list_officers(db: Session = Depends(get_db)):
+    officers = ProjectService.get_all_officers(db)
+    return [
+        {
+            "officer_id": o.officer_id,
+            "officer_name": o.officer_name,
+            "department_id": o.department_id,
+            "officer_designation": o.officer_designation,
+            "officer_email": o.officer_email,
+            "officer_status": o.officer_status,
+        }
+        for o in officers
+    ]

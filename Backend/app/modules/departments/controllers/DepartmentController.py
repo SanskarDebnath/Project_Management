@@ -28,3 +28,9 @@ def view_department(
 def edit_department(department_data: DepartmentUpdateDTO, db: Session = Depends(get_db)):
     updated_department = DepartmentService.update_department(db, department_data)
     return updated_department
+
+@router.get("/list", response_model=list[DepartmentResponseDTO], status_code=status.HTTP_200_OK)
+@router.get("/all", response_model=list[DepartmentResponseDTO], status_code=status.HTTP_200_OK)
+def list_departments(db: Session = Depends(get_db)):
+    return DepartmentService.get_all_departments(db)
+

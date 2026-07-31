@@ -161,3 +161,13 @@ class ProjectRepo:
             return db.scalar(query)
         
         return None
+
+    @staticmethod
+    def get_all_projects(db: Session) -> list[ProjectTable]:
+        query = select(ProjectTable).order_by(ProjectTable.project_id)
+        return list(db.scalars(query).all())
+
+    @staticmethod
+    def get_all_officers(db: Session) -> list[OfficerTable]:
+        query = select(OfficerTable).order_by(OfficerTable.officer_id)
+        return list(db.scalars(query).all())

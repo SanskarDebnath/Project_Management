@@ -8,10 +8,13 @@ export const Sidebar: React.FC = () => {
     { label: 'My Tasks', path: '/tasks', icon: CheckSquare },
     { label: 'Attendance Log', path: '/attendance', icon: Clock },
     { label: 'Work Orders', path: '/work-orders', icon: FileText },
+    /* Uncreated backend modules commented out per user instruction:
     { label: 'Performance Review', path: '/performance', icon: Award },
     { label: 'Payroll & Slips', path: '/payroll', icon: DollarSign },
+    */
     { label: 'My Profile', path: '/profile', icon: User },
   ];
+
 
   return (
     <aside className="w-64 border-r border-slate-200/80 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md min-h-[calc(100vh-57px)] p-4 flex flex-col justify-between">
@@ -35,10 +38,11 @@ export const Sidebar: React.FC = () => {
         ))}
       </div>
 
-      <div className="p-3.5 rounded-xl bg-gradient-to-br from-indigo-50 to-slate-100 dark:from-indigo-950/40 dark:to-slate-900 border border-indigo-100 dark:border-indigo-900/50">
-        <p className="text-xs font-bold text-indigo-900 dark:text-indigo-200">Need Help?</p>
+      <div className="p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        <p className="text-xs font-bold text-blue-900 dark:text-blue-200">Need Help?</p>
         <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Contact IT Support Desk for access requests.</p>
       </div>
+
     </aside>
   );
 };

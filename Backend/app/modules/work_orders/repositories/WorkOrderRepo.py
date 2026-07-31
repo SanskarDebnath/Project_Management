@@ -45,3 +45,8 @@ class WorkorderRepo:
         except SQLAlchemyError:
             db.rollback()
             raise
+
+    @staticmethod
+    def get_all(db: Session) -> list[WorkOrderTable]:
+        query = select(WorkOrderTable).order_by(WorkOrderTable.work_order_id)
+        return list(db.scalars(query).all())

@@ -168,3 +168,11 @@ class ProjectService:
                 detail=f"Project not found for identifier : {identifier}"
             )
         return project
+
+    @staticmethod
+    def get_all_projects(db: Session) -> list[ProjectTable]:
+        return ProjectRepo.get_all_projects(db)
+
+    @staticmethod
+    def get_all_officers(db: Session) -> list[OfficerTable]:
+        return ProjectRepo.get_all_officers(db)

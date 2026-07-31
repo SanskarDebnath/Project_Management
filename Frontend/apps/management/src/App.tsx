@@ -49,9 +49,12 @@ export default function App() {
               <Route path="/budgets" element={<BudgetsPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/attendance-approvals" element={<AttendanceApprovalsPage />} />
+              {/* Uncreated backend modules commented out per user instruction:
               <Route path="/performance-management" element={<PerformanceManagementPage />} />
               <Route path="/audit-trail" element={<AuditTrailPage />} />
               <Route path="/analytics-reports" element={<AnalyticsReportsPage />} />
+              */}
+
             </Route>
           </Route>
 

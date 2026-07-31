@@ -318,3 +318,8 @@ class WorkOrderService:
             db,
             work_order,
         )
+
+    @staticmethod
+    def get_all_work_orders(db: Session) -> list[WorkOrderTable]:
+        return WorkorderRepo.get_all(db)
+

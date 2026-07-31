@@ -15,9 +15,10 @@ export default function ProfilePage() {
 
       <Card className="space-y-6">
         <div className="flex items-center gap-6 pb-6 border-b border-slate-100 dark:border-slate-800">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white font-extrabold text-2xl shadow-xl shadow-indigo-500/20">
+          <div className="w-20 h-20 rounded-2xl bg-blue-900 text-amber-400 border border-amber-500/40 flex items-center justify-center font-extrabold text-2xl shadow-md">
             {user?.name.charAt(0) || 'E'}
           </div>
+
           <div>
             <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">{user?.name}</h2>
             <p className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">{user?.designation}</p>

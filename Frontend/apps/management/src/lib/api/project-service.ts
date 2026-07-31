@@ -31,36 +31,7 @@ export const projectService = {
   },
 
   getProjectsList: async (): Promise<ApiResponse<any[]>> => {
-    const res = await apiClient.request<any[]>('/projects/list', { method: 'GET' });
-    if (!res.data) {
-      return {
-        success: true,
-        data: [
-          {
-            project_id: 101,
-            project_name: 'State E-Governance Highway Expansion',
-            department_id: 1,
-            department_name: 'Department of Public Works',
-            officer_id: 201,
-            officer_name: 'Er. Rajesh Kumar',
-            project_start_date: '2026-06-01',
-            budget_allocated: 120000000,
-            status: 'ACTIVE',
-          },
-          {
-            project_id: 102,
-            project_name: 'Smart City Water Distribution Infrastructure',
-            department_id: 2,
-            department_name: 'Water Supply & Urban Sanitation',
-            officer_id: 202,
-            officer_name: 'Er. Sunita Verma',
-            project_start_date: '2026-05-15',
-            budget_allocated: 85000000,
-            status: 'ACTIVE',
-          },
-        ],
-      };
-    }
-    return res;
+    return apiClient.request<any[]>('/projects/list', { method: 'GET' });
   },
+
 };

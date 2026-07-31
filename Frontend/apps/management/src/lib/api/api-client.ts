@@ -29,12 +29,11 @@ class ApiClient {
     endpoint: string,
     config: ApiRequestConfig = {}
   ): Promise<ApiResponse<T>> {
-    const { method = 'GET', headers = {}, body, baseUrl, rawJson = false } = config;
+    const { method = 'GET', headers = {}, body, baseUrl, rawJson = true } = config;
     const url = `${baseUrl ?? this.baseUrl}${endpoint}`;
     const token = sessionStorage.getItem(AUTH_STORAGE_KEY);
 
     const mergedHeaders: Record<string, string> = {
-      'X-Encrypted': 'true',
       accept: 'application/json',
       ...headers,
     };
@@ -49,6 +48,11 @@ class ApiClient {
         mergedHeaders['Content-Type'] = 'application/json';
         fetchBody = JSON.stringify(body);
       } else {
+        /* Legacy encrypted formData commented out below for reference:
+        const encrypted = encryptData(body);
+        fetchBody = new FormData();
+        fetchBody.append('data', encrypted);
+        */
         const encrypted = encryptData(body);
         fetchBody = new FormData();
         fetchBody.append('data', encrypted);
@@ -87,16 +91,18 @@ class ApiClient {
         success: response.ok,
         data: (decryptedData?.data ?? decryptedData) as T,
         message: decryptedData?.message || response.statusText,
+        error: !response.ok ? (decryptedData?.detail || decryptedData?.message || 'API Error') : undefined,
       };
     } catch (err: any) {
-      console.warn(`[ApiClient Network Warning] Endpoint ${endpoint} unreachable. Resilient mode active:`, err.message);
+      console.warn(`[ApiClient Network Warning] Endpoint ${endpoint} unreachable:`, err.message);
       return {
-        success: true,
-        data: undefined,
-        message: 'Resilient mode active.',
+        success: false,
+        error: err.message || 'Server connection failed',
+        message: 'Server connection offline.',
       };
     }
   }
 }
 
 export const apiClient = new ApiClient();
+
